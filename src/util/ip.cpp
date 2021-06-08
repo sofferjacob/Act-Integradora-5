@@ -37,11 +37,11 @@ void Ip::setAddress(std::string ip, bool hasPort) {
     if (octets.size() != 4) {
         throw std::invalid_argument("Invalid IP address");
     }
-    int wPos4 = (octets[0] * 16) + ((2 * 255) + 1 + (4 * 255) + 1 + (8 * 255) + 1);
-    int wPos3 = (octets[1] * 8) + ((2 * 255) + 1 + (4 * 255) + 1);
-    int wPos2 = (octets[2] * 4) + ((255 * 2) + 1);
-    int wPos1 = (octets[3] * 2);
-    weight = wPos1 + wPos2 + wPos3 + wPos4;
+    int wPos4 = (octets[3] * 16) + ((2 * 255) + 1 + (4 * 255) + 1 + (8 * 255) + 1);
+    int wPos3 = (octets[2] * 8) + ((2 * 255) + 1 + (4 * 255) + 1);
+    int wPos2 = (octets[1] * 4) + ((255 * 2) + 1);
+    int wPos1 = (octets[0] * 2);
+    weight = (wPos1 + wPos2 + wPos3 + wPos4) - 5616;  // Substract 5616 so the lower portion of the table is not empty
 }
 
 std::vector<int> Ip::getOctets() {

@@ -30,15 +30,18 @@ public:
     bool exists(Ip);
     // Removes a key value pair from the map.
     void remove(Ip);
+    // Returns the number of collisions in the table
+    int getCollisions();
 private:
     int find(Ip);
     std::vector<MapNode<T> > data;
     int size;
     int maxSize;
+    int collisions;
 };
 
 template<class T>
-Map<T>::Map(int size) : maxSize(size), size(0) {
+Map<T>::Map(int size) : maxSize(size), size(0), collisions(0) {
     data = std::vector<MapNode<T> >(maxSize);
 }
 
@@ -69,6 +72,7 @@ void Map<T>::addAt(Ip key, T value) {
     data.at(currentHash) = currentNode;
     data.at(hashVal) = node;
     size++;
+    collisions++;
 }
 
 template<class T>
@@ -128,6 +132,11 @@ void Map<T>::remove(Ip key) {
     }
     data.at(pos).clearData();
     size--;
+}
+
+template<class T>
+int Map<T>::getCollisions() {
+    return collisions;
 }
 
 #endif

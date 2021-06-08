@@ -11,6 +11,8 @@ int main() {
     cout << "Enter 'q' at any prompt to exit the program" << endl;
     cout << "Loading graph..." << endl;
     Graph graph("bitacoraGrafos.txt");
+    cout << "Graph loaded" << endl;
+    cout << (graph.data.getCollisions()) << " collisions in hash table" << endl;
     while (true) {
         bool exit = false;
         Ip input = getInput(exit);
